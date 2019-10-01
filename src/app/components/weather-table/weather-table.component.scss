@@ -1,0 +1,16 @@
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+table {
+  th, td {
+    font-size: 1.0em;
+  }
+
+  th {
+    text-align: center;
+  }
+}

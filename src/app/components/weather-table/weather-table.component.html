@@ -1,0 +1,29 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Дата</th>
+    <th scope="col">Погода</th>
+    <th scope="col">Облачность</th>
+    <th scope="col">Ветер</th>
+    <th scope="col">Осадки <small>(за последние 3 ч.)</small></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let line of data">
+    <td>{{line?.dt | datetime}}</td>
+    <td>
+      {{line?.weather[0]?.main}} ({{line?.weather[0]?.description}}) <br>
+      <span [innerHTML]="getSymbol(line?.weather[0]?.icon)"></span><br>
+    </td>
+    <td class="text-center">{{line?.clouds?.all}} %</td>
+    <td>
+      Скорость ветра: {{line?.wind?.speed}} м/с<br>
+      Направление: {{line?.wind?.deg}} градусов<br>
+    </td>
+    <td class="text-center">
+      <p *ngIf="line?.snow?.volume" class="text-center">{{line?.snow?.volume | number: '1.3-3'}} мм</p>
+      <p *ngIf="!line?.snow?.volume" class="text-center">---</p>
+    </td>
+  </tr>
+  </tbody>
+</table>

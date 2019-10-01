@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Информация о погоде</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2>Температура</h2>
+      <app-weather-multi-lines *ngIf="isDataLoaded" [data]="temperatures" [labels]="labels"></app-weather-multi-lines>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2>Давление</h2>
+      <app-weather-multi-lines *ngIf="isDataLoaded" [data]="pressures" [labels]="labels"></app-weather-multi-lines>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2>Подробная информация</h2>
+      <app-weather-table *ngIf="isDataLoaded" [data]="weatherInfo"></app-weather-table>
+    </div>
+  </div>
+</div>
+

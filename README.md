@@ -1,27 +1,59 @@
-# Weather
+# Тестовое задание по Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.2.
+## Задание
+Есть открытое [погодное api](https://openweathermap.org/forecast5). Необходимо:
+ * запросить данные
+ * сгенерировать из полученных данных графики (используя любую библиотеку в виде multiline charts) для всех параметров, находящихся в “main” за весь временной период
+ * для остальных параметров (weather, clouds, speed, snow) построить таблицу, используя bootstrap
 
-## Development server
+Запрос для отображения данных:
+``` bash
+http://samples.openweathermap.org/data/2.5/forecast?id=524901&appid=b1b15e88fa797225412429c1c50c122a1
+``` 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Особенности работы
+Сервер http://samples.openweathermap.org выдает ошибку связанную с CORS, поэтому по умолчанию в проекте используются замоканные данные (getDefaultWeatherData()). 
 
-## Code scaffolding
+Проблему с CORS можно решить путем поднятия прокси-сервера на nginx с необходимыми заголовками и отправки запроса не напрямую серверу http://samples.openweathermap.org, а через созданный прокси. 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+При поднятии прокси-сервера необходимо раскомментировать две строки:
+``` bash
+// компонент weather
+// this.weatherService.getWeatherData().subscribe(this.getData);
+``` 
+``` bash
+// environments.ts 
+// httpServer: 'http://api.weather.local'
+```  
 
-## Build
+### Прокси сервер
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Создание прокси-сервера:
+``` bash
+// /usr/local/etc/nginx/nginx.conf - для macos
 
-## Running unit tests
+server {
+    listen  80;
+    server_name api.weather.local;
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+    add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
 
-## Running end-to-end tests
+    location / {
+        proxy_pass https://samples.openweathermap.org;
+    }
+}
+```  
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+``` bash
+// /etc/host - для macos
 
-## Further help
+127.0.0.1   api.weather.local
+```  
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Перезапуск nginx с помощью команды:
+``` bash
+sudo nginx -s reload
+``` 

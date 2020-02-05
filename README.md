@@ -23,11 +23,7 @@ http://samples.openweathermap.org/data/2.5/forecast?id=524901&appid=b1b15e88fa79
 
 Проблему с CORS можно решить путем поднятия прокси-сервера на nginx с необходимыми заголовками и отправки запроса не напрямую серверу http://samples.openweathermap.org, а через созданный прокси. 
 
-При поднятии прокси-сервера необходимо раскомментировать две строки:
-``` bash
-// компонент weather
-// this.weatherService.getWeatherData().subscribe(this.getData);
-``` 
+При поднятии прокси-сервера также необходимо раскомментировать:
 ``` bash
 // environments.ts 
 // httpServer: 'http://api.weather.local'

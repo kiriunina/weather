@@ -12,7 +12,14 @@ http://samples.openweathermap.org/data/2.5/forecast?id=524901&appid=b1b15e88fa79
 ``` 
 
 ## Особенности работы
-Сервер http://samples.openweathermap.org выдает ошибку связанную с CORS, поэтому по умолчанию в проекте используются замоканные данные (getDefaultWeatherData()). 
+Сервер http://samples.openweathermap.org выдает ошибку связанную с CORS, поэтому по умолчанию в проекте используются замоканные данные. Чтобы использовать незамоканные данные в файле app.module.ts необходимо раскомментировать строку BACKEND_PROVIDERS и закомментировать BACKEND_MOCKS_PROVIDERS.
+
+``` bash
+ providers: [
+    // BACKEND_PROVIDERS,
+    BACKEND_MOCKS_PROVIDERS,
+  ],
+```  
 
 Проблему с CORS можно решить путем поднятия прокси-сервера на nginx с необходимыми заголовками и отправки запроса не напрямую серверу http://samples.openweathermap.org, а через созданный прокси. 
 

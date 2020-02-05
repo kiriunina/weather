@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {WeatherInfo} from '../../models/weather-info';
 
 @Component({
@@ -6,14 +6,8 @@ import {WeatherInfo} from '../../models/weather-info';
   templateUrl: './weather-table.component.html',
   styleUrls: ['./weather-table.component.scss']
 })
-export class WeatherTableComponent implements OnInit {
+export class WeatherTableComponent {
   @Input() data: WeatherInfo[];
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
 
   getSymbol(icon: string) {
     return String.fromCharCode(parseInt(icon, 16));

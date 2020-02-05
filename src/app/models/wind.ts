@@ -1,6 +1,4 @@
-export class Wind {
-  constructor(
-    public speed: number,
-    public deg: number,
-  ) {}
+export interface Wind {
+  speed: number;
+  deg: number;
 }

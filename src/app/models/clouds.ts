@@ -1,3 +1,3 @@
-export class Clouds {
-  constructor(public all: number) {}
+export interface Clouds {
+  all: number;
 }

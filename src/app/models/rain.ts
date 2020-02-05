@@ -1,3 +1,3 @@
-export class Rain {
-  constructor(public volume: number) {}
+export interface Rain {
+  volume: number;
 }

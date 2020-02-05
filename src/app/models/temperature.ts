@@ -7,6 +7,5 @@ export class Temperature {
     public seaLevel: number,
     public grndLevel: number,
     public humidity: number,
-    public tempKf: number) {
-  }
+    public tempKf: number) {}
 }

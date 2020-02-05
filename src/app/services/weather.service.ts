@@ -1,26 +1,23 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {WEATHER_DATA} from '../shared/weather-data';
+import {IWeatherService} from './interfaces/IWeatherService';
+import {Observable} from 'rxjs';
+import {WeatherInfo} from '../models/weather-info';
+import {WeatherResponseData} from '../models/weather-response-data';
+import {map} from 'rxjs/operators';
+import {Mapper} from '../mappers/mapper';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class WeatherService {
+export class WeatherService implements IWeatherService {
 
   constructor(protected http: HttpClient) {}
 
-  getWeatherData() {
-    return this.http.get(this.url('data/2.5/forecast'), {
+  getWeatherData(id: string, appId: string): Observable<WeatherInfo[]> {
+    return this.http.get<WeatherResponseData>(this.url('data/2.5/forecast'), {
       params: {
-        id: '524901',
-        appid: 'b1b15e88fa797225412429c1c50c122a1'
+        id: id,
+        appid: appId,
       }
-    });
-  }
-
-  getDefaultData() {
-    return WEATHER_DATA;
+    }).pipe(map(data => data.list.map(item => Mapper.mapToWeatherInfoModel(item))));
   }
 
   private url(path: string) {

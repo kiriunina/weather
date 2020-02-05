@@ -9,6 +9,7 @@ import { WeatherMultiLinesComponent } from './components/weather-multi-lines/wea
 import { WeatherTableComponent } from './components/weather-table/weather-table.component';
 import { DatetimePipe } from './pipes/datetime.pipe';
 import {ChartsModule} from 'ng2-charts';
+import {BACKEND_MOCKS_PROVIDERS, BACKEND_PROVIDERS} from './providers/backend_providers';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import {ChartsModule} from 'ng2-charts';
     HttpClientModule,
     ChartsModule,
   ],
-  providers: [],
+  providers: [
+    // BACKEND_PROVIDERS,
+    BACKEND_MOCKS_PROVIDERS,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

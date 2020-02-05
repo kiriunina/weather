@@ -7,11 +7,12 @@ import {Wind} from './wind';
 export class WeatherInfo {
   constructor(
     public dt: number,
-    public temperature: Temperature,
+    public main: Temperature,
     public weather: Weather[],
     public clouds: Clouds,
     public snow: Snow,
-    public wind: Wind) {
+    public wind: Wind,
+    public sys: any,
+    public dtTxt: string) {
   }
-
 }
